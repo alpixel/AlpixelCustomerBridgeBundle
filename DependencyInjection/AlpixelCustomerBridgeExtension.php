@@ -22,8 +22,9 @@ class AlpixelCustomerBridgeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('alpixel_customer_bridge.jira_project_name', $config['jira_project_name']);
+        $container->setParameter('alpixel_customer_bridge.jira_project_key', $config['jira_project_key']);
         $container->setParameter('alpixel_customer_bridge.token', $config['token']);
+        $container->setParameter('alpixel_customer_bridge.repository', $config['repository']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
