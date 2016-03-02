@@ -22,13 +22,13 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('token')
+                ->scalarNode('customer_token')
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('customer_key')
                     ->cannotBeEmpty()
                 ->end()
                 ->scalarNode('repository')
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('jira_project_key')
                     ->cannotBeEmpty()
                 ->end()
             ->end();

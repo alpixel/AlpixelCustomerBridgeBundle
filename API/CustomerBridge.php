@@ -23,16 +23,24 @@ class CustomerBridge extends \GuzzleHttp\Client
         ]]);
     }
 
-    protected function _call($method, $query, $params)
+    public function getJiraTickets() {
+        return $this->_call('get', 'jira/issues');
+    }
+
+    protected function _call($method, $query, $params = [])
     {
         try {
             $callURL = self::ENDPOINT.'/'.$query;
-            $call    = $this->send($this->createRequest(strtolower($method), $callURL, [
-                'query' => $params
-            ]));
+            $call = $this->request(strtolower($method), $callURL, [
+                'query' => array_merge($params, [
+                    'project' => $this->projectName,
+                    'token' => $this->token,
+                ]),
+            ]);
+
             $response = [
                 'statusCode' => $call->getStatusCode(),
-                'data'       => $call->json(),
+                'data' => @json_decode((string) $call->getBody(), true),
             ];
         }
         catch (ClientException $e) {

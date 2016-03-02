@@ -1,0 +1,11 @@
+services:
+
+    alpixel.customer_bridge.helper.bridge:
+        class: 'Alpixel\Bundle\CustomerBridgeBundle\Helper\APIHelper'
+        arguments: ['%alpixel_customer_bridge.customer_key%', '%alpixel_customer_bridge.customer_token%']
+
+    alpixel.customer_bridge.admin.jira:
+        class: 'Alpixel\Bundle\CustomerBridgeBundle\Admin\SupportAdmin'
+        arguments: [~, ~, 'AlpixelCustomerBridgeBundle:Support']
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: 'ALPIXEL', label: 'Support'}
